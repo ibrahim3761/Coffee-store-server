@@ -25,6 +25,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const coffeesCollection = client.db('coffeeDB').collection('coffees');
+    const usersCollection = client.db('coffeeDB').collection('users');
 
     app.get('/coffees', async(req,res)=>{
       // const cursor = coffeesCollection.find();
@@ -67,6 +68,13 @@ async function run() {
       res.send(result);
     })
 
+    // user related API
+    app.post('/users', async (req,res)=>{
+      const newUser = req.body;
+      console.log(newUser);
+      const result = await usersCollection.insertOne(newUser);
+      res.send(result);
+    })
 
 
 
